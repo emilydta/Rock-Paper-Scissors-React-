@@ -21,16 +21,16 @@ body {
 }
 
 .rps-button {
-  height: 8em;
-  width: 8em;
-  font-size: 2em;;
+  height: 7em;
+  width: 7em;
+  font-size: 2em;
   color: white;
   background: black;
   border: solid 2px white;
   border-radius: 10%;
 }
   
-.rps-button:hover {
+.rps-button:hover, .play-again-button:hover {
   background-color: white;
   color: black;
   cursor: pointer;
@@ -45,10 +45,21 @@ body {
   margin-bottom: 1em;
 }
 
-.player-choice, .computer-choice, .result-message {
+.player-choice, .computer-choice, .game-message {
   font-size: 1.5em;
 }
 
 .buttons {
+  margin-bottom: 3em;
+}
+
+.play-again-button {
+  width: 8em;
+  height: 4em;
+  font-size: 1em;
+  color: white;
+  background: black;
+  border: solid 2px white;
+  border-radius: 5%;
   margin-bottom: 3em;
 }

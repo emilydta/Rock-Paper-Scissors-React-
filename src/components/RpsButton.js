@@ -4,7 +4,7 @@ function RpsButton(props) {
             className="rps-button"
             onClick={props.onClick}
             >
-            {props.playerOption}
+            {props.playerChoice}
         </button>
     )
 }
