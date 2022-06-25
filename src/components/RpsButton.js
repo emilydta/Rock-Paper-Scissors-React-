@@ -1,8 +1,8 @@
-function RpsButton({ onClick, value }) {
+function RpsButton({ handleClick, value }) {
     return (
         <button 
             className="rps-button"
-            onClick={onClick}
+            onClick={handleClick}
             id={value}
             >
             {value}

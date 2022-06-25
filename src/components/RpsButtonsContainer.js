@@ -5,15 +5,15 @@ function RpsButtonsContainer({rock, paper, scissors}) {
         <div className="buttons">
             <RpsButton 
                 value="Rock"
-                onClick={rock}
+                handleClick={rock}
             />
             <RpsButton 
                 value="Paper"
-                onClick={paper} 
+                handleClick={paper} 
             />
             <RpsButton 
                 value="Scissors"
-                onClick={scissors}
+                handleClick={scissors}
             />
         </div>
     )
