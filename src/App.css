@@ -1,9 +1,9 @@
-body {
+html {
   background-color: black;
   color: white;
 }
 
-.App, .player-data, .computer-data, .results {
+.App, .player-data, .computer-data, .results, #root {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -62,4 +62,29 @@ body {
   border: solid 2px white;
   border-radius: 5%;
   margin-bottom: 3em;
+}
+
+@media screen and (max-width: 850px) {
+  .rps-button { 
+    font-size: 1em;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 2em;
+  }
+
+  .player-data, .player-data>li, .computer-data, .computer-data>li {
+    margin-bottom: 0.5em;
+  }
+
+  .player-choice, .computer-choice, .game-message {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-height: 450px) {
+  .buttons, .player-data, .computer-data {
+    margin-bottom: 0em;
+  }
 }
