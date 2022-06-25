@@ -1,7 +1,7 @@
 import './App.css';
-import RpsButton from './components/RpsButton'; 
 import PlayAgainButton from './components/PlayAgainButton';
 import React, { Component } from 'react';
+import RpsButtonsContainer from './components/RpsButtonsContainer';
 
 class App extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class App extends Component {
         choice: "",
         score: 0
       },
-      resultMessage: "",
+      endRoundMessage: "",
     }
 
     this.state = this.initialState
@@ -74,46 +74,36 @@ class App extends Component {
         choice: computerChoice,
         score: computerScore
       },
-      resultMessage: result,
+      endRoundMessage: result,
     }))
   }
 
   render() {
-    const { player, computer, resultMessage } = this.state;
+    const { player, computer, endRoundMessage } = this.state;
+
+    const rpsButtons = <RpsButtonsContainer 
+      rock={() => this.playRound("Rock")}
+      paper={() => this.playRound("Paper")}
+      scissors={() => this.playRound("Scissors")}
+    />
+
     return (
       <div className="App">
         {
           player.score === 5 || computer.score === 5 ? 
-          <PlayAgainButton onClick={() => this.restartGame()}/> : 
-          <div className="buttons">
-            <RpsButton 
-              playerChoice="Rock" 
-              id="rock" 
-              onClick={() => this.playRound("Rock")} 
-            />
-            <RpsButton 
-              playerChoice="Paper" 
-              id="paper" 
-              onClick={() => this.playRound("Paper")} 
-            />
-            <RpsButton 
-              playerChoice="Scissors" 
-              id="scissors" 
-              onClick={() => this.playRound("Scissors")} 
-            />
-        </div>
+          <PlayAgainButton onClick={() => this.restartGame()}/> : rpsButtons
         }
       <div className="game-data">
         <ul 
           className="player-data" 
-          style={resultMessage.includes("win") ? {color: "#39FF14"} : {color: "white"}}>
+          style={endRoundMessage.includes("win") ? {color: "#39FF14"} : {color: "white"}}>
           <li>{`Score: ${player.score}`}</li>
           <li className="player-tag">{player.name}</li>
           <li className="player-choice">{player.choice}</li>
         </ul>
         <ul 
           className="computer-data"
-          style={resultMessage.includes("lose") ? {color: "#39FF14"} : {color: "white"}}>
+          style={endRoundMessage.includes("lose") ? {color: "#39FF14"} : {color: "white"}}>
           <li>{`Score: ${computer.score}`}</li>
           <li className="player-tag">{computer.name}</li>
           <li className="computer-choice">{computer.choice}</li>
@@ -121,7 +111,7 @@ class App extends Component {
       </div>
       <div className="results">
           <p className="game-message">
-          {player.score === 5 || computer.score === 5 ? this.generateEndGameMessage() : resultMessage}</p>
+          {player.score === 5 || computer.score === 5 ? this.generateEndGameMessage() : endRoundMessage}</p>
         </div>
     </div>
     );

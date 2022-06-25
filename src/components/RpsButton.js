@@ -1,10 +1,11 @@
-function RpsButton(props) {
+function RpsButton({ onClick, value }) {
     return (
         <button 
             className="rps-button"
-            onClick={props.onClick}
+            onClick={onClick}
+            id={value}
             >
-            {props.playerChoice}
+            {value}
         </button>
     )
 }
