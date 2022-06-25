@@ -20,6 +20,10 @@ html {
   gap: 5em;
 }
 
+.results {
+  text-align: center;
+}
+
 .rps-button {
   height: 7em;
   width: 7em;
@@ -88,26 +92,25 @@ html {
 }
 
 @media screen and (max-width: 400px) {
-  .rps-button { 
+  .rps-button, .play-again-button { 
     font-size: 0.5em;
+  }
+
+  .player-data, .player-data>li, .computer-data, .computer-data>li, .results {
+    margin: 0;
+    font-size: 0.9em;
   }
 
   .buttons {
     display: flex;
     gap: 1em;
-    margin-bottom: 0.5em;
   }
 
-  .player-data, .player-data>li, .computer-data, .computer-data>li, .results {
-    margin: 0;
-    font-size: 0.7em;
-  }
-
-  .player-data {
-    width: 2.5em;
+  .game-data {
+    margin-bottom: 1em;
   }
 
   .player-choice, .computer-choice, .game-message {
-    font-size: 0.5em;
+    font-size: 0.8em;
   }
 }
