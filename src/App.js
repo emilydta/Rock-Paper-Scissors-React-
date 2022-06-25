@@ -28,9 +28,10 @@ class App extends Component {
   }
 
   generateEndGameMessage() {
-    if (this.state.player.score === 5) {
+    const { player, computer } = this.state;
+    if (player.score === 5) {
       return "Congratulations! You beat the Computer!"
-    } else if (this.state.computer.score === 5) {
+    } else if (computer.score === 5) {
       return "Oh no! You lost to the Computer!"
     } 
   }
@@ -42,45 +43,47 @@ class App extends Component {
   }
 
   playRound(playerChoice) {
-    const computerChoice = this.computerPlay();
-      let result = "";
-      let playerScore = this.state.player.score;
-      let computerScore = this.state.computer.score;
+    const { player, computer } = this.state;
 
-      const playerWins = (playerChoice === "Rock" && computerChoice === "Scissors")
-                      || (playerChoice === "Paper" && computerChoice === "Rock")
-                      || (playerChoice === "Scissors" && computerChoice === "Paper");
+    const computerChoice = this.computerPlay();
+    let playerScore = player.score;
+    let computerScore = computer.score;
+    let result = "";
+    const playerWins = (playerChoice === "Rock" && computerChoice === "Scissors")
+                    || (playerChoice === "Paper" && computerChoice === "Rock")
+                    || (playerChoice === "Scissors" && computerChoice === "Paper");
+    
+    if (playerWins) {
+      result = `You win! ${playerChoice} beats ${computerChoice}!`;
+      ++playerScore
+    } else if (playerChoice === computerChoice) {
+      result = "It's a tie!";
+    } else {
+      result = `You lose! ${computerChoice} beats ${playerChoice}!`;
+      ++computerScore
+    }
       
-      if (playerWins) {
-        result = `You win! ${playerChoice} beats ${computerChoice}!`;
-        ++playerScore
-      } else if (playerChoice === computerChoice) {
-        result = "It's a tie!";
-      } else {
-        result = `You lose! ${computerChoice} beats ${playerChoice}!`;
-        ++computerScore
-      }
-      
-    this.setState((prevState) => ({
-        player: {
-          name: prevState.player.name,
-          choice: playerChoice,
-          score: playerScore
-        },
-        computer: {
-          name: prevState.computer.name,
-          choice: computerChoice,
-          score: computerScore
-        },
-        resultMessage: result,
+    this.setState(({ player, computer }) => ({
+      player: {
+        name: player.name,
+        choice: playerChoice,
+        score: playerScore
+      },
+      computer: {
+        name: computer.name,
+        choice: computerChoice,
+        score: computerScore
+      },
+      resultMessage: result,
     }))
   }
 
   render() {
+    const { player, computer, resultMessage } = this.state;
     return (
       <div className="App">
         {
-          this.state.player.score === 5 || this.state.computer.score === 5 ? 
+          player.score === 5 || computer.score === 5 ? 
           <PlayAgainButton onClick={() => this.restartGame()}/> : 
           <div className="buttons">
             <RpsButton 
@@ -103,22 +106,22 @@ class App extends Component {
       <div className="game-data">
         <ul 
           className="player-data" 
-          style={this.state.resultMessage.includes("win") ? {color: "#39FF14"} : {color: "white"}}>
-          <li>{`Score: ${this.state.player.score}`}</li>
-          <li className="player-tag">{this.state.player.name}</li>
-          <li className="player-choice">{this.state.player.choice}</li>
+          style={resultMessage.includes("win") ? {color: "#39FF14"} : {color: "white"}}>
+          <li>{`Score: ${player.score}`}</li>
+          <li className="player-tag">{player.name}</li>
+          <li className="player-choice">{player.choice}</li>
         </ul>
         <ul 
           className="computer-data"
-          style={this.state.resultMessage.includes("lose") ? {color: "#39FF14"} : {color: "white"}}>
-          <li>{`Score: ${this.state.computer.score}`}</li>
-          <li className="player-tag">{this.state.computer.name}</li>
-          <li className="computer-choice">{this.state.computer.choice}</li>
+          style={resultMessage.includes("lose") ? {color: "#39FF14"} : {color: "white"}}>
+          <li>{`Score: ${computer.score}`}</li>
+          <li className="player-tag">{computer.name}</li>
+          <li className="computer-choice">{computer.choice}</li>
         </ul>
       </div>
       <div className="results">
           <p className="game-message">
-          {this.state.player.score === 5 || this.state.computer.score === 5 ? this.generateEndGameMessage() : this.state.resultMessage}</p>
+          {player.score === 5 || computer.score === 5 ? this.generateEndGameMessage() : resultMessage}</p>
         </div>
     </div>
     );
